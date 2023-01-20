@@ -1,0 +1,41 @@
+{
+  "name": "@dvlden/alea",
+  "description": "Pseudorandom number generator based on Alea algorithm.",
+  "keywords": [
+    "alea",
+    "prng",
+    "pseudorandom",
+    "number",
+    "generator"
+  ],
+  "version": "1.0.0",
+  "main": "dist/alea.js",
+  "module": "dist/alea.mjs",
+  "typings": "dist/alea.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "rollup --config rollup.config.ts --configPlugin typescript",
+    "test": "vitest"
+  },
+  "repository": "github:dvlden/alea",
+  "author": {
+    "name": "Nenad Novaković",
+    "email": "n.dvlden@gmail.com",
+    "url": "https://dvl.sh/"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@7.21.0",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.0.0",
+    "esbuild": "^0.17.3",
+    "prettier": "^2.8.3",
+    "rollup": "^3.10.1",
+    "rollup-plugin-dts": "^5.1.1",
+    "rollup-plugin-esbuild": "^5.0.0",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4",
+    "vitest": "^0.27.2"
+  }
+}
