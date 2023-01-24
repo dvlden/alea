@@ -3,38 +3,56 @@ import { alea } from './index'
 
 describe('test suite', () => {
   const SEED = {
-    one: 123,
-    two: 456,
+    number: 123,
+    string: 'hello',
   }
 
   const TEN_RESULTS_OF_SEED_ONE = [
-    0.1198014235123992, 0.9354658843949437, 0.5764761702157557,
-    0.329674051143229, 0.9269699552096426, 0.04019391303882003,
-    0.10265917237848043, 0.5101447412744164, 0.15607460448518395,
-    0.9286545519717038,
+    0.4801303152926266, 0.06268894905224442, 0.463917750865221,
+    0.29265914228744805, 0.6509405097458512, 0.4605325092561543,
+    0.27594090229831636, 0.5570068266242743, 0.7574450396932662,
+    0.7531666262075305,
   ]
 
-  it('is a function', () => {
+  it('returns a function', () => {
     const instance = vi.fn(alea)
 
     expect(instance).toBeTypeOf('function')
   })
 
-  it('accepts one argument', () => {
+  it('runs without the seed', () => {
     const instance = vi.fn(alea)
 
-    instance(SEED.one)
+    instance()
 
-    expect(instance).toHaveBeenCalledWith(SEED.one)
+    expect(instance).toHaveBeenCalled()
+  })
+
+  it('accepts seed as number', () => {
+    const instance = vi.fn(alea)
+
+    const { value } = instance(SEED.number).next()
+
+    expect(instance).toHaveBeenCalled()
+    expect(value).toBe(0.4801303152926266)
+  })
+
+  it('accepts seed argument as string', () => {
+    const instance = vi.fn(alea)
+
+    const { value } = instance(SEED.string).next()
+
+    expect(instance).toHaveBeenCalled()
+    expect(value).toBe(0.8750656815245748)
   })
 
   it('returns same result if seed is identical', () => {
     const instanceOne = vi.fn(alea)
     const instanceTwo = vi.fn(alea)
 
-    const [valueOne, valueTwo] = [
-      instanceOne(SEED.one).next().value,
-      instanceTwo(SEED.one).next().value,
+    const [{ value: valueOne }, { value: valueTwo }] = [
+      instanceOne(SEED.number).next(),
+      instanceTwo(SEED.number).next(),
     ]
 
     expect(valueOne).toStrictEqual(valueTwo)
@@ -44,17 +62,33 @@ describe('test suite', () => {
     const instanceOne = vi.fn(alea)
     const instanceTwo = vi.fn(alea)
 
-    const [valueOne, valueTwo] = [
-      instanceOne(SEED.one).next().value,
-      instanceTwo(SEED.two).next().value,
+    const [{ value: valueOne }, { value: valueTwo }] = [
+      instanceOne(SEED.number).next(),
+      instanceTwo(SEED.string).next(),
     ]
 
     expect(valueOne).not.toStrictEqual(valueTwo)
   })
 
+  it('returns a result as uint32 if second argument is given', () => {
+    const instance = vi.fn(alea)
+
+    const { value } = instance(SEED.number, 'uint32').next()
+
+    expect(value).toBe(2062144002)
+  })
+
+  it('returns a result as fract53 if second argument is given', () => {
+    const instance = vi.fn(alea)
+
+    const { value } = instance(SEED.number, 'fract53').next()
+
+    expect(value).toBe(0.48013031540441564)
+  })
+
   it('generates different outputs if looped through a single instance', () => {
     const instance = vi.fn(alea)
-    const generator = instance(SEED.one)
+    const generator = instance(SEED.number)
 
     let output = []
     for (let i = 0; i < 10; i++) {
