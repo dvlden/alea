@@ -6,12 +6,14 @@
     "prng",
     "pseudorandom",
     "number",
-    "generator"
+    "generator",
+    "uint32",
+    "fract53"
   ],
-  "version": "1.0.0",
-  "main": "dist/alea.js",
-  "module": "dist/alea.mjs",
-  "typings": "dist/alea.d.ts",
+  "version": "1.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "typings": "dist/index.d.ts",
   "files": [
     "dist/"
   ],
