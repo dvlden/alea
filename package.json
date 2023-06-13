@@ -10,7 +10,7 @@
     "uint32",
     "fract53"
   ],
-  "version": "1.1.1",
+  "version": "1.1.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "typings": "dist/index.d.ts",
